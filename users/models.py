@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
 
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
@@ -14,6 +15,14 @@ class Profile(models.Model):
     company_name = models.CharField(max_length=250, null=True, blank=True)
     phone_number = models.CharField(validators=[phone_regex], max_length=17,
         blank=True)  # validators should be a list
+
+    def clean(self):
+        if (self.is_employee and not self.company_name)\
+                or (not self.is_employee and self.company_name):
+            raise ValidationError(
+                "it is necessary to fill in either both fields,"
+                " or neither of them"
+            )
 
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver

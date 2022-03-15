@@ -11,7 +11,11 @@ urlpatterns = [
     path('new_summary/<int:topic_id>/', views.new_summary, name='new_summary'),
     path('edit_summary/<int:summary_id>', views.edit_summary,
         name='edit_summary'),
+    path('show_summary/<int:summary_id>', views.show_summary,
+        name='show_summary'),
     path('new_vacancy/<int:topic_id>/', views.new_vacancy, name='new_vacancy'),
     path('edit_vacancy/<int:vacancy_id>', views.edit_vacancy,
         name='edit_vacancy'),
+    path('show_vacancy/<int:vacancy_id>/', views.show_vacancy,
+        name='show_vacancy')
 ]

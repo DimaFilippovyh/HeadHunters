@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Topic, Summary, Vacancy
 from .forms import TopicForm, SummaryForm, VacancyForm
-from .check_of_validation import check_topic_owner
+from .check_of_validation import check_object_owner
 
 
 def index(request):
@@ -72,7 +72,7 @@ def edit_summary(request, summary_id):
     summary = Summary.objects.get(id=summary_id)
     topic = summary.topic
 
-    check_topic_owner(topic, request)
+    check_object_owner(summary, request)
 
     if request.method != 'POST':
         form = SummaryForm(instance=summary)
@@ -84,6 +84,15 @@ def edit_summary(request, summary_id):
 
     context = {'summary': summary, 'topic': topic, 'form': form}
     return render(request, 'head_hunters/edit_summary.html', context=context)
+
+
+@login_required
+def show_summary(request, summary_id):
+    summary = Summary.objects.get(id=summary_id)
+    topic = summary.topic
+
+    context = {'summary': summary, 'topic': topic}
+    return render(request, 'head_hunters/show_summary.html', context=context)
 
 
 @login_required
@@ -109,7 +118,7 @@ def edit_vacancy(request, vacancy_id):
     vacancy = Vacancy.objects.get(id=vacancy_id)
     topic = vacancy.topic
 
-    check_topic_owner(topic, request)
+    check_object_owner(vacancy, request)
 
     if request.method != 'POST':
         form = VacancyForm(instance=vacancy)
@@ -121,3 +130,12 @@ def edit_vacancy(request, vacancy_id):
 
     context = {'vacancy': vacancy, 'topic': topic, 'form': form}
     return render(request, 'head_hunters/edit_vacancy.html', context=context)
+
+
+@login_required
+def show_vacancy(request, vacancy_id):
+    vacancy = Vacancy.objects.get(id=vacancy_id)
+    topic = vacancy.topic
+
+    context = {'vacancy': vacancy, 'topic': topic}
+    return render(request, 'head_hunters/show_vacancy.html', context=context)

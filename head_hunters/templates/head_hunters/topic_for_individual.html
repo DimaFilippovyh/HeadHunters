@@ -30,6 +30,9 @@
         <li>
             <p>{{ vacancy.date_added|date:'M d, Y H:i' }}</p>
             <p>{{ vacancy.text|linebreaks }}</p>
+            <p>
+                <a href="{% url 'head_hunters:show_vacancy' vacancy.id %}">Show vacancy</a>
+            </p>
         </li>
     {% empty %}
         <li>There are no summaries for this topic yet.</li>

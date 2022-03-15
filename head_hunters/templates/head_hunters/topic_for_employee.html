@@ -11,6 +11,9 @@
         <li>
             <p>{{ summary.date_added|date:'M d, Y H:i' }}</p>
             <p>{{ summary.text|linebreaks }}</p>
+            <p>
+                <a href="{% url 'head_hunters:show_summary' summary.id %}">Show summary</a>
+            </p>
         </li>
     {% empty %}
         <li>There are no summaries for this topic yet.</li>

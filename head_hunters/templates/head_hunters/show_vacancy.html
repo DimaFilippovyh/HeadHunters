@@ -1,0 +1,8 @@
+{% extends 'head_hunters/base.html' %}
+
+{% block content %}
+<h1>{{ topic.text }}</h1>
+
+{{ vacancy.text|linebreaks }}
+
+{% endblock content %}
