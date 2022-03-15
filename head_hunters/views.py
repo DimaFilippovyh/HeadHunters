@@ -22,10 +22,12 @@ def topic(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
     if request.user.profile.is_employee:
         summaries = topic.summary_set.order_by('date_added')
-        vacancies = topic.vacancy_set.filter(owner=request.user).order_by('date_added')
+        vacancies = topic.vacancy_set.filter(owner=request.user)\
+            .order_by('date_added')
         request_for = 'head_hunters/topic_for_employee.html'
     else:
-        summaries = topic.summary_set.filter(owner=request.user).order_by('date_added')
+        summaries = topic.summary_set.filter(owner=request.user)\
+            .order_by('date_added')
         vacancies = topic.vacancy_set.order_by('date_added')
         request_for = 'head_hunters/topic_for_individual.html'
 
@@ -61,7 +63,7 @@ def new_summary(request, topic_id):
             new_summary.save()
             return redirect('head_hunters:topic', topic_id=topic_id)
 
-    context={'topic': topic, 'form': form}
+    context = {'topic': topic, 'form': form}
     return render(request, 'head_hunters/new_summary.html', context=context)
 
 
@@ -98,7 +100,7 @@ def new_vacancy(request, topic_id):
             new_vacancy.save()
             return redirect('head_hunters:topic', topic_id=topic_id)
 
-    context={'topic': topic, 'form': form}
+    context = {'topic': topic, 'form': form}
     return render(request, 'head_hunters/new_vacancy.html', context=context)
 
 
