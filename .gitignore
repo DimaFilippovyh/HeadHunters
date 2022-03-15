@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#ignore variable environment
+hh_env/
+
+
+.DS_Store

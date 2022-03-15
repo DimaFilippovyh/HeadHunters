@@ -1,0 +1,15 @@
+{% extends 'head_hunters/base.html' %}
+
+{% block content %}
+<p><a href="{% url 'head_hunters:topic' topic.id %}">{{ topic }}</a></p>
+
+<p>Edit summary</p>
+
+<form action="{% url 'head_hunters:edit_summary' summary.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Save changes</button>
+
+</form>
+
+{% endblock content %}

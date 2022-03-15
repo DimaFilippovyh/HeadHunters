@@ -1,0 +1,39 @@
+{% extends 'head_hunters/base.html' %}
+
+{% block content %}
+
+<p>Topics: {{ topic }}</p>
+
+<p>My summaries:</p>
+<p>
+    <a href="{% url 'head_hunters:new_summary' topic.id %}">Add summary</a>
+</p>
+
+<ul>
+    {% for summary in summaries %}
+        <li>
+            <p>{{ summary.date_added|date:'M d, Y H:i' }}</p>
+            <p>{{ summary.text|linebreaks }}</p>
+            <p>
+                <a href="{% url 'head_hunters:edit_summary' summary.id %}">Edit summary</a>
+            </p>
+        </li>
+    {% empty %}
+        <li>There are no summaries for this topic yet.</li>
+    {% endfor %}
+</ul>
+
+<p>Vacancies:</p>
+
+<ul>
+    {% for vacancy in vacancies %}
+        <li>
+            <p>{{ vacancy.date_added|date:'M d, Y H:i' }}</p>
+            <p>{{ vacancy.text|linebreaks }}</p>
+        </li>
+    {% empty %}
+        <li>There are no summaries for this topic yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

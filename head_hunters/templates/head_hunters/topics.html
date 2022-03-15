@@ -1,0 +1,17 @@
+{% extends "head_hunters/base.html" %}
+
+{% block content %}
+
+<a href="{% url 'head_hunters:new_topic' %}">Add a new topic:</a>
+
+<ul>
+    {% for topic in topics %}
+        <li>
+            <a href="{% url 'head_hunters:topic' topic.id %}">{{ topic }}</a>
+        </li>
+    {% empty %}
+        <li>No topics have been added yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

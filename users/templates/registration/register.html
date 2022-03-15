@@ -1,0 +1,13 @@
+{% extends 'head_hunters/base.html' %}
+
+{% block content %}
+
+<form method="post" action="{% url 'users:register' %}">
+    {% csrf_token %}
+    {{ profile_form.as_p }}
+    {{ form.as_p }}
+    <button name="submit">register</button>
+    <input type="hidden" name="next" value="{% url 'head_hunters:index' %}" />
+</form>
+
+{% endblock content %}
