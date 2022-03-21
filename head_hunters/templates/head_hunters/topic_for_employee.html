@@ -22,7 +22,7 @@
 
 <p>My vacancies:</p>
 <p>
-    <a href="{% url 'head_hunters:new_vacancy' topic.id %}">Add vacancy</a>
+    <a href="{% url 'head_hunters:new_vacancy' topic.slug %}">Add vacancy</a>
 </p>
 
 <ul>
@@ -32,6 +32,9 @@
             <p>{{ vacancy.text|linebreaks }}</p>
             <p>
                 <a href="{% url 'head_hunters:edit_vacancy' vacancy.id %}">Edit vacancy</a>
+            </p>
+            <p>
+                <a href="{% url 'head_hunters:delete_vacancy' vacancy.id %}">Delete vacancy</a>
             </p>
         </li>
     {% empty %}

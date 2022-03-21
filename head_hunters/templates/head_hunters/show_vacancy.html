@@ -1,7 +1,7 @@
 {% extends 'head_hunters/base.html' %}
 
 {% block content %}
-<h1>{{ topic.text }}</h1>
+<p><a href="{% url 'head_hunters:topic' topic.slug %}">{{ topic }}</a></p>
 
 {{ vacancy.text|linebreaks }}
 
