@@ -6,7 +6,7 @@
 
 <p>My summaries:</p>
 <p>
-    <a href="{% url 'head_hunters:new_summary' topic.id %}">Add summary</a>
+    <a href="{% url 'head_hunters:new_summary' topic.slug %}">Add summary</a>
 </p>
 
 <ul>
@@ -16,6 +16,9 @@
             <p>{{ summary.text|linebreaks }}</p>
             <p>
                 <a href="{% url 'head_hunters:edit_summary' summary.id %}">Edit summary</a>
+            </p>
+            <p>
+                <a href="{% url 'head_hunters:delete_summary' summary.id %}">Delete summary</a>
             </p>
         </li>
     {% empty %}

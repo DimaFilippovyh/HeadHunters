@@ -18,8 +18,8 @@ def topics(request):
 
 
 @login_required
-def topic(request, topic_id):
-    topic = Topic.objects.get(id=topic_id)
+def topic(request, topic_slug):
+    topic = Topic.objects.get(slug=topic_slug)
     if request.user.profile.is_employee:
         summaries = topic.summary_set.order_by('date_added')
         vacancies = topic.vacancy_set.filter(owner=request.user)\
@@ -50,8 +50,8 @@ def new_topic(request):
 
 
 @login_required
-def new_summary(request, topic_id):
-    topic = Topic.objects.get(id=topic_id)
+def new_summary(request, topic_slug):
+    topic = Topic.objects.get(slug=topic_slug)
     if request.method != 'POST':
         form = SummaryForm()
     else:
@@ -61,7 +61,7 @@ def new_summary(request, topic_id):
             new_summary.topic = topic
             new_summary.owner = request.user
             new_summary.save()
-            return redirect('head_hunters:topic', topic_id=topic_id)
+            return redirect('head_hunters:topic', topic_slug=topic_slug)
 
     context = {'topic': topic, 'form': form}
     return render(request, 'head_hunters/new_summary.html', context=context)
@@ -80,7 +80,7 @@ def edit_summary(request, summary_id):
         form = SummaryForm(instance=summary, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('head_hunters:topic', topic_id=topic.id)
+            return redirect('head_hunters:topic', topic_slug=topic.slug)
 
     context = {'summary': summary, 'topic': topic, 'form': form}
     return render(request, 'head_hunters/edit_summary.html', context=context)
@@ -96,8 +96,18 @@ def show_summary(request, summary_id):
 
 
 @login_required
-def new_vacancy(request, topic_id):
-    topic = Topic.objects.get(id=topic_id)
+def delete_summary(request, summary_id):
+    summary = Summary.objects.get(id=summary_id)
+    topic = summary.topic
+    Summary.objects.filter(id=summary_id).delete()
+
+    context = {'topic': topic}
+    return render(request, 'head_hunters/delete_summary.html', context=context)
+
+
+@login_required
+def new_vacancy(request, topic_slug):
+    topic = Topic.objects.get(slug=topic_slug)
     if request.method != 'POST':
         form = VacancyForm()
     else:
@@ -107,7 +117,7 @@ def new_vacancy(request, topic_id):
             new_vacancy.topic = topic
             new_vacancy.owner = request.user
             new_vacancy.save()
-            return redirect('head_hunters:topic', topic_id=topic_id)
+            return redirect('head_hunters:topic', topic_slug=topic_slug)
 
     context = {'topic': topic, 'form': form}
     return render(request, 'head_hunters/new_vacancy.html', context=context)
@@ -126,7 +136,7 @@ def edit_vacancy(request, vacancy_id):
         form = VacancyForm(instance=vacancy, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('head_hunters:topic', topic_id=topic.id)
+            return redirect('head_hunters:topic', topic_slug=topic.slug)
 
     context = {'vacancy': vacancy, 'topic': topic, 'form': form}
     return render(request, 'head_hunters/edit_vacancy.html', context=context)
@@ -139,3 +149,13 @@ def show_vacancy(request, vacancy_id):
 
     context = {'vacancy': vacancy, 'topic': topic}
     return render(request, 'head_hunters/show_vacancy.html', context=context)
+
+
+@login_required
+def delete_vacancy(request, vacancy_id):
+    vacancy = Vacancy.objects.get(id=vacancy_id)
+    topic = vacancy.topic
+    Vacancy.objects.filter(id=vacancy_id).delete()
+
+    context = {'topic': topic}
+    return render(request, 'head_hunters/delete_vacancy.html', context=context)

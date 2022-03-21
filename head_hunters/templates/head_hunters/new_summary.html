@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<p><a href="{% url 'head_hunters:topic' topic.id %}">{{ topic }}</a></p>
+<p><a href="{% url 'head_hunters:topic' topic.slug %}">{{ topic }}</a></p>
 
 <p>Add a new summary:</p>
-<form action="{% url 'head_hunters:new_summary' topic.id %}" method='post'>
+<form action="{% url 'head_hunters:new_summary' topic.slug %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
     <button name='submit'>add summary</button>
