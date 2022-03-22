@@ -1,7 +1,18 @@
 {% extends "head_hunters/base.html" %}
 
-{% block content %}
+{% block page_header %}
 
-<p>HeadHunters help you find a job</p>
+    <div class='jumbotron' style="background-color: #FDE5E5;">
+        <h1 class="display-3">Start looking for a new job here.</h1>
 
-{% endblock content %}
+        <div class="lead">
+            <p>The more difficult the job, the easier it is to get a job.</p>
+            <p>This service will help you find a job or offer you suitable workers.</p>
+        </div>
+
+    <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+        role="button">Register &raquo;
+    </a>
+    </div>
+
+{% endblock page_header %}

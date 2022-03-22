@@ -21,5 +21,5 @@ class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
         fields = ['text']
-        labels = {'text': 'Vacancy'}
+        labels = {'text': 'Vacancy:'}
         widgets = {'text': forms.Textarea(attrs={'cols': 80})}

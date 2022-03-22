@@ -1,8 +1,18 @@
 {% extends 'head_hunters/base.html' %}
 
-{% block content %}
-<p><a href="{% url 'head_hunters:topic' topic.slug %}">{{ topic }}</a></p>
+{% load bootstrap4 %}
 
-{{ summary.text|linebreaks }}
+{% block page_header %}
+    <h2>
+        <a href="{% url 'head_hunters:topic' topic.slug %}"
+            class="nav-link">{{ topic }}</a>
+    </h2>
+{% endblock page_header %}
+
+{% block content %}
+
+    <h4>
+        {{ summary.text|linebreaks }}
+    </h4>
 
 {% endblock content %}

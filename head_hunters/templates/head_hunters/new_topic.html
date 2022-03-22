@@ -1,11 +1,20 @@
-{% extends 'head_hunters/base.html' %}
+{% extends "head_hunters/base.html" %}
+
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>Add new topic</h2>
+{% endblock page_header %}
 
 {% block content %}
-<p>Add a new topic:</p>
 
-<form action="{% url 'head_hunters:new_topic' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Add topic</button>
-</form>
+    <form action="{% url 'head_hunters:new_topic' %}" class="form" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Add topic</button>
+        {% endbuttons %}
+    </form>
+
 {% endblock content %}

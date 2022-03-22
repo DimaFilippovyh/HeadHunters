@@ -1,13 +1,24 @@
 {% extends 'head_hunters/base.html' %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>Register</h2>
+{% endblock page_header %}
+
 {% block content %}
-
-<form method="post" action="{% url 'users:register' %}">
+<form method="post" action="{% url 'users:register' %}" class="form">
     {% csrf_token %}
-    {{ profile_form.as_p }}
-    {{ form.as_p }}
-    <button name="submit">register</button>
-    <input type="hidden" name="next" value="{% url 'head_hunters:index' %}" />
-</form>
+    {% bootstrap_form profile_form %}
+    {% bootstrap_form form %}
 
-{% endblock content %}
+    {% buttons %}
+        <button name="submit" class="btn btn-primary">Register</button>
+    {% endbuttons %}
+    <input 
+        type="hidden"
+        name="next"
+        value="{% url 'head_hunters:index' %}" 
+    />
+</form>
+{% endblock content %}  

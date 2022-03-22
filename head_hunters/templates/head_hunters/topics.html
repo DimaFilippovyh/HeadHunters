@@ -1,17 +1,25 @@
 {% extends "head_hunters/base.html" %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h1>Topics</h1>
+{% endblock page_header %}
+
 {% block content %}
 
-<a href="{% url 'head_hunters:new_topic' %}">Add a new topic:</a>
-
-<ul>
-    {% for topic in topics %}
-        <li>
-            <a href="{% url 'head_hunters:topic' topic.slug %}">{{ topic }}</a>
-        </li>
-    {% empty %}
-        <li>No topics have been added yet.</li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for topic in topics %}
+            <li><h3>
+                <a href="{% url 'head_hunters:topic' topic.slug %}"
+                    class="nav-link">{{ topic }}</a>
+            </h3></li>
+        {% empty %}
+            <li><h3>No topics have been added yet.</h3></li>
+        {% endfor %}
+    </ul>
+    <h3><a class="btn btn-lg btn-primary" 
+        href="{% url 'head_hunters:new_topic' %}" 
+        role="button">Add new topic</a></h3>
 
 {% endblock content %}

@@ -1,14 +1,24 @@
 {% extends 'head_hunters/base.html' %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>Add new summary</h2>
+{% endblock page_header %}
+
 {% block content %}
 
-<p><a href="{% url 'head_hunters:topic' topic.slug %}">{{ topic }}</a></p>
+    <h3>
+        <a href="{% url 'head_hunters:topic' topic.slug %}">{{ topic }}</a>
+    </h3>
 
-<p>Add a new summary:</p>
-<form action="{% url 'head_hunters:new_summary' topic.slug %}" method='post'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button name='submit'>add summary</button>
-</form>
+    <form action="{% url 'head_hunters:new_summary' topic.slug %}" class="form" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Add summary</button>
+        {% endbuttons %}
+    </form>
 
 {% endblock content %}
