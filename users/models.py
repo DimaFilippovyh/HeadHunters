@@ -20,8 +20,8 @@ class Profile(models.Model):
         if (self.is_employee and not self.company_name)\
                 or (not self.is_employee and self.company_name):
             raise ValidationError(
-                "it is necessary to fill in either both fields,"
-                " or neither of them"
+                "It is necessary to fill in either both fields"
+                " (Is employee, Company name), or neither of them."
             )
 
 # from django.db.models.signals import post_save

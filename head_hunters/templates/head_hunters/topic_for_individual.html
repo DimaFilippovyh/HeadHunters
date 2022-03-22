@@ -1,45 +1,60 @@
 {% extends 'head_hunters/base.html' %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>{{ topic }}</h2>
+{% endblock page_header %}
+
 {% block content %}
+    <h4><p>My summaries:</p></h4>
+    <p>
+        <a href="{% url 'head_hunters:new_summary' topic.slug %}"
+            class="btn btn-lg btn-primary"
+            role="button">Add new summary</a>
+    </p>
 
-<p>Topics: {{ topic }}</p>
-
-<p>My summaries:</p>
-<p>
-    <a href="{% url 'head_hunters:new_summary' topic.slug %}">Add summary</a>
-</p>
-
-<ul>
     {% for summary in summaries %}
-        <li>
-            <p>{{ summary.date_added|date:'M d, Y H:i' }}</p>
-            <p>{{ summary.text|linebreaks }}</p>
-            <p>
-                <a href="{% url 'head_hunters:edit_summary' summary.id %}">Edit summary</a>
-            </p>
-            <p>
-                <a href="{% url 'head_hunters:delete_summary' summary.id %}">Delete summary</a>
-            </p>
-        </li>
+        <div class="card mb-3">
+            <h4 class="card-header">
+                {{ summary.date_added|date:'M d, Y H:i' }}
+                <small>
+                    <a href="{% url 'head_hunters:edit_summary' summary.id %}"
+                        class="btn btn-lg btn-primary"
+                        role="button">Edit summary</a>
+                    
+                    <a href="{% url 'head_hunters:delete_summary' summary.id %}"
+                        class="btn btn-lg btn-primary"
+                        role="button">Delete summary</a>
+                </small>
+            </h4>
+            <div class="card-body">
+                {{ summary.text|linebreaks }}
+            </div>
+        </div>
     {% empty %}
-        <li>There are no summaries for this topic yet.</li>
+        <h4>There are no summaries for this topic yet.</h4>
     {% endfor %}
-</ul>
 
-<p>Vacancies:</p>
 
-<ul>
+    <h4><p>Vacancies:</p></h4>
+
     {% for vacancy in vacancies %}
-        <li>
-            <p>{{ vacancy.date_added|date:'M d, Y H:i' }}</p>
-            <p>{{ vacancy.text|linebreaks }}</p>
-            <p>
-                <a href="{% url 'head_hunters:show_vacancy' vacancy.id %}">Show vacancy</a>
-            </p>
-        </li>
+        <div class="card mb-3">
+            <h4 class="card-header">
+                {{ vacancy.date_added|date:'M d, Y H:i' }}
+                <small>
+                    <a href="{% url 'head_hunters:show_vacancy' vacancy.id %}"
+                        class="btn btn-lg btn-primary"
+                        role="button">Show vacancy</a>
+                </small>
+            </h4>
+            <div class="card-body">
+                {{ vacancy.text|linebreaks }}
+            </div>
+        </div>
     {% empty %}
-        <li>There are no summaries for this topic yet.</li>
+        <h4>There are no vacancies for this topic yet.</h4>
     {% endfor %}
-</ul>
 
-{% endblock content %}
+{% endblock content%}

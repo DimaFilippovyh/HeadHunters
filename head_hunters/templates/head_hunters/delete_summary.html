@@ -1,7 +1,17 @@
 {% extends 'head_hunters/base.html' %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>Delete summary</h2>
+{% endblock page_header %}
+
 {% block content %}
-<p><a href="{% url 'head_hunters:topic' topic.slug %}">{{ topic }}</a></p>
+
+    <h3>
+        <a href="{% url 'head_hunters:topic' topic.slug %}"
+            class="nav-link">{{ topic }}</a>
+    </h3>
 
 <p>Summary was deleted</p>
 
