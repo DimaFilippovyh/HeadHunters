@@ -5,14 +5,14 @@ from .models import Topic, Summary, Vacancy
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
-        fields = ['text']
-        labels = {'text': ''}
+        fields = ['name']
+        labels = {'name': ''}
 
 
 class SummaryForm(forms.ModelForm):
     class Meta:
         model = Summary
-        fields = ['text']
+        fields = ['text', 'photo']
         labels = {'text': 'Summary:'}
         widgets = {'text': forms.Textarea(attrs={'cols': 80})}
 

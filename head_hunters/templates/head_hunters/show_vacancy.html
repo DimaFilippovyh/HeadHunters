@@ -10,9 +10,14 @@
 {% endblock page_header %}
 
 {% block content %}
+    <h2>
+        Company name: {{ vacancy.company_name }}
+    </h2>
 
-    <h4>
-        {{ vacancy.text|linebreaks }}
-    </h4>
+    <h4>Сontact phone number: {{ phone }}</h4>
+
+    <h3>Vacancy:</h3>
+
+    <h4>{{ vacancy.text|linebreaks }}</h4>
 
 {% endblock content %}

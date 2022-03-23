@@ -11,7 +11,8 @@
     <h3><a href="{% url 'head_hunters:topic' topic.slug %}" 
         class="nav-link">{{ topic }}</a></h3>
 
-    <form action="{% url 'head_hunters:edit_summary' summary.id %}" class="form" method="post">
+    <form action="{% url 'head_hunters:edit_summary' summary.id %}" class="form" method="post"
+        enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
 

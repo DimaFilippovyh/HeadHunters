@@ -13,8 +13,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_employee = models.BooleanField(default=False, blank=True)
     company_name = models.CharField(max_length=250, null=True, blank=True)
-    phone_number = models.CharField(validators=[phone_regex], max_length=17,
-        blank=True)  # validators should be a list
+    phone_number = models.CharField(validators=[phone_regex], max_length=17,)
 
     def clean(self):
         if (self.is_employee and not self.company_name)\

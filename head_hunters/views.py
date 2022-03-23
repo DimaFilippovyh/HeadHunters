@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Topic, Summary, Vacancy
+from users.models import Profile
 from .forms import TopicForm, SummaryForm, VacancyForm
 from .check_of_validation import check_object_owner
 
@@ -55,7 +56,7 @@ def new_summary(request, topic_slug):
     if request.method != 'POST':
         form = SummaryForm()
     else:
-        form = SummaryForm(data=request.POST)
+        form = SummaryForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             new_summary = form.save(commit=False)
             new_summary.topic = topic
@@ -77,7 +78,8 @@ def edit_summary(request, summary_id):
     if request.method != 'POST':
         form = SummaryForm(instance=summary)
     else:
-        form = SummaryForm(instance=summary, data=request.POST)
+        form = SummaryForm(instance=summary, data=request.POST,
+            files=request.FILES)
         if form.is_valid():
             form.save()
             return redirect('head_hunters:topic', topic_slug=topic.slug)
@@ -90,8 +92,10 @@ def edit_summary(request, summary_id):
 def show_summary(request, summary_id):
     summary = Summary.objects.get(id=summary_id)
     topic = summary.topic
+    phone = Profile.objects\
+                .get(user_id=summary.owner.id).phone_number
 
-    context = {'summary': summary, 'topic': topic}
+    context = {'summary': summary, 'topic': topic, 'phone': phone}
     return render(request, 'head_hunters/show_summary.html', context=context)
 
 
@@ -116,6 +120,8 @@ def new_vacancy(request, topic_slug):
             new_vacancy = form.save(commit=False)
             new_vacancy.topic = topic
             new_vacancy.owner = request.user
+            new_vacancy.company_name = Profile.objects\
+                .get(user_id=request.user.id).company_name
             new_vacancy.save()
             return redirect('head_hunters:topic', topic_slug=topic_slug)
 
@@ -146,8 +152,10 @@ def edit_vacancy(request, vacancy_id):
 def show_vacancy(request, vacancy_id):
     vacancy = Vacancy.objects.get(id=vacancy_id)
     topic = vacancy.topic
+    phone = Profile.objects\
+                .get(user_id=vacancy.owner.id).phone_number
 
-    context = {'vacancy': vacancy, 'topic': topic}
+    context = {'vacancy': vacancy, 'topic': topic, 'phone': phone}
     return render(request, 'head_hunters/show_vacancy.html', context=context)
 
 

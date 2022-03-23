@@ -29,7 +29,7 @@
                 </small>
             </h4>
             <div class="card-body">
-                {{ summary.text|linebreaks }}
+                {{ summary.text|truncatewords:50|linebreaks }}
             </div>
         </div>
     {% empty %}
@@ -50,7 +50,7 @@
                 </small>
             </h4>
             <div class="card-body">
-                {{ vacancy.text|linebreaks }}
+                {{ vacancy.text|truncatewords:50|linebreaks }}
             </div>
         </div>
     {% empty %}

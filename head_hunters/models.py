@@ -4,22 +4,23 @@ from django.contrib.auth.models import User
 
 
 class Topic(models.Model):
-    text = models.CharField(max_length=250)
+    name = models.CharField(max_length=250)
     date_added = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=255, unique=True, db_index=True,
         verbose_name="URL")
 
     def __str__(self):
-        return self.text
+        return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.text)
+        self.slug = slugify(self.name)
         super(Topic, self).save(*args, **kwargs)
 
 
 class Summary(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     text = models.TextField()
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d")
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
